@@ -14,7 +14,25 @@ class Solution:
             ans = max(ans, rk + 1 - i)
         return ans
 
+    def lengthOfLongestSubstring2(self, s: str) -> int:
+        length = len(s) # 长度
+        maxlen = 0
+        substr = set()
+        for i in range(length-1):
+            if i == 0:
+                substr.add(s[i])
+            else:
+                substr.remove(s[i-1])
+                substr.add(s[i])
+            for j in range(i+1, length):
+                if s[j] in substr:
+                    break
+                substr.add(s[j])
+            maxlen = max(maxlen, len(substr))
+
+        return maxlen
+
 
 if __name__ == "__main__":
     s = Solution()
-    print(s.lengthOfLongestSubstring('abcabcbb'))
+    print(s.lengthOfLongestSubstring2('abcabcbb'))
